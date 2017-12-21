@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  db:
+    restart: unless-stopped
+    image: mezis/docker-cassandra
+    build: .
+    entrypoint: eatmydata ./docker-entrypoint.sh cassandra -f
+    volumes:
+      - data:/var/lib/cassandra
+    environment:
+      CASSANDRA_MAX_HEAP_SIZE: "384M"
+      CASSANDRA_HEAP_NEWSIZE:  "64M"
+volumes:
+  data:
