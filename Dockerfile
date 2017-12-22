@@ -1,7 +1,7 @@
 FROM library/cassandra:3
 
 RUN apt-get update
-RUN apt-get -y install eatmydata
+RUN apt-get -y install eatmydata less
 
 ENV CASSANDRA_MAX_HEAP_SIZE=4G \
     CASSANDRA_HEAP_NEWSIZE=800M
@@ -32,7 +32,7 @@ HEALTHCHECK \
     --timeout=10s \
     CMD ["/usr/bin/cqlsh", "-e", "DESCRIBE KEYSPACES"]
 
-# Override the entrypoint in
-# https://github.com/docker-library/cassandra/blob/master/3.11/Dockerfile
-ENTRYPOINT ["eatmydata", "/docker-entrypoint.sh"]
-CMD ["cassandra", "-f"]
+
+# Override the java executable
+COPY java-override.sh /usr/local/sbin/java
+RUN chmod +x /usr/local/sbin/java
