@@ -5,7 +5,6 @@ services:
     restart: unless-stopped
     image: mezis/docker-cassandra
     build: .
-    entrypoint: eatmydata ./docker-entrypoint.sh cassandra -f
     volumes:
       - data:/var/lib/cassandra
     environment:
