@@ -10,3 +10,5 @@ RUN sed \
     -e 's/^#MAX_HEAP_SIZE.*/MAX_HEAP_SIZE="$CASSANDRA_MAX_HEAP_SIZE"/' \
     -e 's/^#HEAP_NEWSIZE.*/HEAP_NEWSIZE="$CASSANDRA_HEAP_NEWSIZE"/' \
 	-i~ /etc/cassandra/cassandra-env.sh
+
+HEALTHCHECK CMD cqlsh -e 'DESCRIBE KEYSPACES'
